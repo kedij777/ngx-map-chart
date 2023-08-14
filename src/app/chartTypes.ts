@@ -708,21 +708,11 @@ const chartGroups = [
         name: 'Map Chart',
         selector: 'map-chart',
         options: [
-          'animations',
-          'showXAxis',
-          'showYAxis',
-          'gradient',
-          'showLegend',
-          'noBarWhenZero',
-          'legendTitle',
-          'legendPosition',
-          'showXAxisLabel',
-          'xAxisLabel',
-          'showYAxisLabel',
-          'yAxisLabel',
-          'showGridLines',
-          'roundDomains',
-          'tooltipDisabled'
+          'view',
+          'centerMapAt',
+          'latitude',
+          'longitude',
+          'mapLanguage'
         ]
       },
       {

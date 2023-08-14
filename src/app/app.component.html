@@ -686,11 +686,10 @@
       class="chart-container"
       [view]="view"
       [scheme]="colorScheme"
-      cardColor="#232837"
-      emptyColor="#1e222e"
-      [results]="single"
-      [animations]="animations"
-      (select)="select($event)"
+      [centerMapAt]="centerMapAt"
+      [latitude]="latitude"
+      [longitude]="longitude"
+      [mapLanguage]="mapLanguage"
     >
     </ngx-charts-map-chart>
       <ngx-charts-box-chart
@@ -1567,6 +1566,20 @@
         <div *ngIf="chart.options.includes('yScaleMax')">
           <label>Maximum Y-Scale value</label><br />
           <input type="number" [(ngModel)]="yScaleMax" /><br />
+        </div>
+        <div *ngIf="chart.options.includes('mapLanguage')">
+          <label>Map Language:</label><br />
+          <select  [(ngModel)]="mapLanguage">
+            <option value="native">Native</option>
+            <option value="german">German</option>
+            <option value="english">English</option></select
+          ><br />
+        </div>
+        <div *ngIf="chart.options.includes('centerMapAt')">
+          <label>Latitude:</label><br />
+          <input type="number" [(ngModel)]="latitude" /><br />
+          <label>Longitude:</label><br />
+          <input type="number" [(ngModel)]="longitude" /><br />
         </div>
       </div>
       <h3><a href="https://swimlane.gitbooks.io/ngx-charts/content/" target="_blank">Documentation</a></h3>

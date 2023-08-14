@@ -117,6 +117,10 @@ export class AppComponent implements OnInit {
   strokeColor: string = '#FFFFFF';
   strokeWidth: number = 2;
   wrapTicks = false;
+  centerMapAt: [number,number];
+  latitude: number = 42.3601;
+  longitude: number = -71.0589;
+  mapLanguage: string = 'default';
 
   curves = {
     Basis: shape.curveBasis,
