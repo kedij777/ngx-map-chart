@@ -39,7 +39,7 @@ export class BaseChartComponent implements OnChanges, AfterViewInit, OnDestroy, 
   @Output() select = new EventEmitter();
 
   width: number;
-  height: number = 700;
+  height: number;
   resizeSubscription: any;
   visibilityObserver: VisibilityObserver;
 

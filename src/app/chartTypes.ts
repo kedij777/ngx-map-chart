@@ -707,12 +707,15 @@ const chartGroups = [
       {
         name: 'Map Chart',
         selector: 'map-chart',
+        inputFormat: 'mapChart',
         options: [
-          'view',
-          'centerMapAt',
-          'latitude',
-          'longitude',
-          'mapLanguage'
+          'showLegend',
+          'legendTitle',
+          'legendPosition',
+          'colorScheme',
+          'mapZoom',
+          'initCoordX',
+          'initCoordY'
         ]
       },
       {

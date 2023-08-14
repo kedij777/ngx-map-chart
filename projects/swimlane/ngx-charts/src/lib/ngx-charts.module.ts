@@ -12,7 +12,6 @@ import { PieChartModule } from './pie-chart/pie-chart.module';
 import { TreeMapModule } from './tree-map/tree-map.module';
 import { GaugeModule } from './gauge/gauge.module';
 import { ngxChartsPolyfills } from './polyfills';
-import { MapChartModule } from './map-chart/map-chart.module';
 
 @NgModule({
   exports: [
@@ -27,8 +26,7 @@ import { MapChartModule } from './map-chart/map-chart.module';
     NumberCardModule,
     PieChartModule,
     TreeMapModule,
-    GaugeModule,
-    MapChartModule
+    GaugeModule
   ]
 })
 export class NgxChartsModule {
