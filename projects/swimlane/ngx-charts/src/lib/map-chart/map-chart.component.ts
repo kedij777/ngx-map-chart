@@ -37,24 +37,25 @@ export class MapChartComponent extends BaseChartComponent implements OnInit {
     if (this.map) {
       //trigger the map to reload
       this.map.invalidateSize();
-      const newCenter = this.map.getCenter();
-      this.longitude = newCenter.lng;
-      this.latitude = newCenter.lat;
-      var latlng = L.latLng(this.latitude,this.longitude);
+      let latlng = L.latLng(this.latitude,this.longitude);
       this.map.setView(latlng);
-
     } else {
       this.initMap();
     }
 
     if (this.mapLanguage) {
+      const newCenter = this.map.getCenter();
+      this.longitude = newCenter.lng;
+      this.latitude = newCenter.lat;
+      let latlng = L.latLng(this.latitude,this.longitude);
+      this.map.setView(latlng);
       this.changeLanguage();
     }
   }
   
   
   initMap(): void {
-    var centroid: L.LatLngExpression = [this.latitude, this.longitude]; 
+    let centroid: L.LatLngExpression = [this.latitude, this.longitude]; 
 
     this.map = L.map('map', {
       center: centroid,
