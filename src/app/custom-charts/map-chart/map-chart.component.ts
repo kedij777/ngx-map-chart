@@ -53,9 +53,9 @@ export class MapChartComponent extends BaseChartComponent implements OnInit {
   @Input() view: [number, number];
   @Input() longitude: number;
   @Input() latitude: number;
-  @Input() mapLanguage: string;
+  @Input() mapLanguage: string = "native";
   @Input() centerMapAt: any;
-
+  @Input() mapLog: boolean = false;
 
   @Output() activate: EventEmitter<any> = new EventEmitter();
   @Output() deactivate: EventEmitter<any> = new EventEmitter();
@@ -108,41 +108,33 @@ export class MapChartComponent extends BaseChartComponent implements OnInit {
     this.updateLegend();
 
     this.transform = `translate(${this.dims.xOffset} , ${this.margin[0]})`;
-    console.log(this.scheme);
 
     this.adjustSize();
     
     if (this.map) {
       //trigger the map to reload
       this.map.invalidateSize();
-      let latlng = L.latLng(this.latitude,this.longitude);
-      this.map.setView(latlng);
     } else {
       this.mapInit();
     }
 
     if (this.mapLanguage) {
-      const newCenter = this.map.getCenter();
-      this.longitude = newCenter.lng;
-      this.latitude = newCenter.lat;
-      let latlng = L.latLng(this.latitude,this.longitude);
-      console.log(latlng);
       this.changeLanguage();
-      
-      this.map.setView(latlng);
     }
   }
-  
 
   mapInit(): void {
     this.map = L.map('map', {
       center: [this.initCoordX, this.initCoordY],
-      zoom: this.mapZoom
+      zoom: this.mapZoom,
+      inertia: false
     });
 
     setTimeout(() => {
       this.map.invalidateSize(true);
     }, 0);
+
+    this.map.setMaxBounds(this);
 
     this.currentTiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 18,
@@ -205,10 +197,13 @@ export class MapChartComponent extends BaseChartComponent implements OnInit {
     }
   }
 
+  changePosition(): void {
+    this.map.setView([this.latitude, this.longitude]);
+  }
+
   updateLegend(): void {
     let legendColumns = 0;
     if (this.legend) {
-
       if (this.legendPosition === LegendPosition.Right) {
         legendColumns = 2;
       }
@@ -240,15 +235,14 @@ export class MapChartComponent extends BaseChartComponent implements OnInit {
       this.width = this.view[0];
       this.height = this.view[1];
     }
-    console.log(this.view);
     const container = select(this.chartElement.nativeElement).select('#map').node() as HTMLElement;
-    console.log(container);
     container.style.width = this.width + "px"; 
     container.style.height = this.height + "px";
-
   }
 
   changeLanguage() {
+    const oldCenter = this.map.getCenter();
+
     // Remove the current tile layer if it exists
     if (this.currentTiles) {
       this.map.removeLayer(this.currentTiles);
@@ -274,9 +268,8 @@ export class MapChartComponent extends BaseChartComponent implements OnInit {
         attribution: '&copy; <a href="https://carto.com/">carto.com</a> contributors'
       });
     }
-    
     this.currentTiles.addTo(this.map);
 
-    this.map.setView([this.latitude, this.longitude]);
+    this.map.setView(oldCenter);
   }
 }
